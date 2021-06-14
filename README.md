@@ -4,6 +4,8 @@ This is arduino (ESP8266) library for reading Sensus Protocol.
 
 Was developed mainly to be able to read Sensus SRD 2 water meter, but could be usable for others. Depedning on meter, the string returned may be different, but the protocol to read the meter is the same.
 
+The protocol is also called as UI-1203.
+
 Water Meter Pinout
 ------------------
 most Sensus compatible meters (including the elster/AMCO meter) there are 3 wires (or three labeled terminals):
@@ -35,7 +37,7 @@ GREEN: connect to GPIO0, there also needs to be 10k resistor
 
 If your board already have external pull up resistors on GPIO0 & GPIO2, you may not need extra ones. I had issues with pull up resistors less than 10k, reading was not reliable.
 
-The connection may not be conventional, but it ensures that both GPIO pins are pulled up on startup, so the ESP8266 starts up fine. Also it makes sure that there is no voltage on the meter, to reset it cleanly. When GPIO2 is pulled down, it takes about 0.1V away, so the meter operates on 3.2V.
+The connection may not be conventional, but it ensures that both GPIO pins are pulled up on startup, so the ESP8266 starts up fine. Also it makes sure that there is no voltage on the meter, so it resets cleanly. When GPIO2 is pulled down, it takes about 0.1V away, so the meter operates on 3.2V.
 
 The data format from the meter I have is:
 
@@ -53,3 +55,5 @@ yyyyyyyy - not completely sure, does not seem to change.
 
 
 Some of this code was inspired by https://github.com/rszimm/kmeter by Rich Zimmerman, which gave me an idea how to read the meter. Thanks for sharing the code.
+
+And some other info I also got from http://www.plctalk.net/qanda/showthread.php?t=79284
