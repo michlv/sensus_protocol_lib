@@ -41,26 +41,22 @@ char SensusProtocol::readByte() {
       result |= (1 << b);
     }
   }
-  if (result == 0) {
-    result = 'x';
-  }
-  if (result == 0x7f) {
-    result = 'y';
-  }
   DEBUG_MSG("byte: %i, %c\n", result, result);
   return result;    
 }
   
-SensusProtocol::SensusProtocol(int clock_pin, int read_pin) : clock_pin(clock_pin), read_pin(read_pin) {}
+SensusProtocol::SensusProtocol(int clock_pin, int read_pin, bool read_pin_pullup)
+ : clock_pin(clock_pin), read_pin(read_pin), read_pin_pullup(read_pin_pullup) {}
 
 void SensusProtocol::setup() {
   DEBUG_MSG("setup using pins: clk: %i, read: %i...\n", clock_pin, read_pin);
   pinMode(clock_pin, OUTPUT);
   digitalWrite(clock_pin, clock_OFF); // power off the meter
-  if (read_pin == 3 /* RX */ ) {
-    pinMode(read_pin, FUNCTION_3);
+  auto input = INPUT;
+  if (read_pin_pullup) {
+    input = INPUT_PULLUP;
   }
-  pinMode(read_pin, INPUT);
+  pinMode(read_pin, input);
   delay(5000); // make sure that the meter is reset
 }
 

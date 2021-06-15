@@ -7,6 +7,8 @@
 class SensusProtocol {
   int clock_pin;
   int read_pin;
+  bool read_pin_pullup;
+
   static const auto clock_ON = LOW;
   static const auto clock_OFF = HIGH;
   
@@ -16,7 +18,7 @@ class SensusProtocol {
   char readByte();
 
 public:
-  SensusProtocol(int clock_pin=2, int read_pin=0);  
+  SensusProtocol(int clock_pin, int read_pin, bool read_pin_pullup = true);
   void setup();
   int getClockPin() const;
   String readData();

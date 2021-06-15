@@ -1,8 +1,8 @@
 # sensus_protocol_esp8266_lib
 
-This is arduino (ESP8266) library for reading Sensus Protocol.
+This is arduino library for reading Sensus Protocol. It was developer on ESP8266 (ESP-01), but should also work with Arduino, if the meter is connected the same way.
 
-Was developed mainly to be able to read Sensus SRD 2 water meter, but could be usable for others. Depedning on meter, the string returned may be different, but the protocol to read the meter is the same.
+Developed to read Sensus SRD 2 water meter, but could be usable for others. Depedning on meter, the string returned may be different, but the protocol to read the meter should be the same.
 
 The protocol is also called as UI-1203.
 
@@ -30,14 +30,16 @@ BLACK:  Ground.
 This library was tested with ESP8266 (ESP-01) and meter connected to GPIO2 (clock) and GPIO0 (data) lines. The connections are as below:
 
 RED:   connect to 3.3V
-BLACK: connect to GPIO2, there also needs to be 10k resistor
-       between GPIO2 and 3.3V.
-GREEN: connect to GPIO0, there also needs to be 10k resistor
-       between GPIO0 and 3.3V
+BLACK: connect to GPIO2
+GREEN: connect to GPIO0
 
-If your board already have external pull up resistors on GPIO0 & GPIO2, you may not need extra ones. I had issues with pull up resistors less than 10k, reading was not reliable.
+The data read pin is configured by default with integrated pull-up resistor.
 
 The connection may not be conventional, but it ensures that both GPIO pins are pulled up on startup, so the ESP8266 starts up fine. Also it makes sure that there is no voltage on the meter, so it resets cleanly. When GPIO2 is pulled down, it takes about 0.1V away, so the meter operates on 3.2V.
+
+If your ESP board does not boot up, one may need to add 10k or higher pull up resitors between GPIO2 and 3.3V or GPIO0 and 3.3V.
+
+For Adruino I expect no pull up resistors are needed and in the above where 3.3V is used, use 5V instead.
 
 The data format from the meter I have is:
 
