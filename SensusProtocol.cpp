@@ -28,7 +28,6 @@ int SensusProtocol::readBit() {
 
 char SensusProtocol::readByte() {
   int bits[10];
-  //while (readBit() != 1);
   for (int i = 0; i < 10; ++i) {
     bits[i] = readBit();
   }
@@ -62,10 +61,10 @@ void SensusProtocol::setup(int reset_wait) {
 
 int SensusProtocol::getClockPin() const { return clock_pin; }
 
-String SensusProtocol::readData() {    
+String SensusProtocol::readData(int max_bytes) {
   String result;
   powerUp();
-  for (int i = 0; i < 50; ++i) {
+  for (int i = 0; i < max_bytes; ++i) {
     char c = readByte();
     if (c == '\r')
       break;

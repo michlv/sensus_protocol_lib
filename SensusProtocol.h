@@ -21,7 +21,7 @@ public:
   SensusProtocol(int clock_pin, int read_pin, bool read_pin_pullup = true);
   void setup(int reset_wait=5000);
   int getClockPin() const;
-  String readData();
+  String readData(int max_bytes=50);
   void slowBitRead(int wait);
 };
 
