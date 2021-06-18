@@ -48,8 +48,8 @@ char SensusProtocol::readByte() {
 SensusProtocol::SensusProtocol(int clock_pin, int read_pin, bool read_pin_pullup)
  : clock_pin(clock_pin), read_pin(read_pin), read_pin_pullup(read_pin_pullup) {}
 
-void SensusProtocol::setup() {
-  DEBUG_MSG("setup using pins: clk: %i, read: %i...\n", clock_pin, read_pin);
+void SensusProtocol::setup(int reset_wait) {
+  DEBUG_MSG("setup using pins: clk: %i, read: %i, read_pullup: %i ...\n", clock_pin, read_pin, read_pin_pullup);
   pinMode(clock_pin, OUTPUT);
   digitalWrite(clock_pin, clock_OFF); // power off the meter
   auto input = INPUT;
@@ -57,7 +57,7 @@ void SensusProtocol::setup() {
     input = INPUT_PULLUP;
   }
   pinMode(read_pin, input);
-  delay(5000); // make sure that the meter is reset
+  delay(reset_wait); // make sure that the meter is reset
 }
 
 int SensusProtocol::getClockPin() const { return clock_pin; }
@@ -75,10 +75,10 @@ String SensusProtocol::readData() {
   return result;
 }
 
-void SensusProtocol::slowBitRead() {
+void SensusProtocol::slowBitRead(int wait) {
   powerUp();
   while (true) {
     readBit();
-    delay(5000);
+    delay(wait);
   }
 }

@@ -1,14 +1,12 @@
-# sensus_protocol_esp8266_lib
+# sensus_protocol_lib
 
-This is arduino library for reading Sensus Protocol. It was developer on ESP8266 (ESP-01), but should also work with Arduino, if the meter is connected the same way.
+This is arduino library for reading Sensus Protocol (UI-1203). It was developed on ESP8266 (ESP-01), but should also work with Arduino, if the meter is connected the same way.
 
-Developed to read Sensus SRD 2 water meter, but could be usable for others. Depedning on meter, the string returned may be different, but the protocol to read the meter should be the same.
-
-The protocol is also called as UI-1203.
+Developed to read Sensus SR D II (SR D 2) water meter, but could be usable for others. Depedning on meter, the string returned may be different, but the protocol to read the meter should be the same.
 
 Water Meter Pinout
 ------------------
-most Sensus compatible meters (including the elster/AMCO meter) there are 3 wires (or three labeled terminals):
+Most Sensus compatible meters (including the elster/AMCO meter) there are 3 wires (or three labeled terminals):
 
 RED:    This is the clock signal and also power. Depeding on 
         meter type, it may need 5V to run, I managed to read
@@ -39,15 +37,15 @@ The connection may not be conventional, but it ensures that both GPIO pins are p
 
 If your ESP board does not boot up, one may need to add 10k or higher pull up resitors between GPIO2 and 3.3V or GPIO0 and 3.3V.
 
-For Adruino I expect no pull up resistors are needed and in the above where 3.3V is used, use 5V instead.
+For Adruino, I expect, no pull up resistors are needed and in the above where 3.3V is used, just replace with 5V instead.
 
 The data format from the meter I have is:
 
-start bit (0), 7 data bits (LSB), parity bit, stop bit (1)
+start bit (0), 7 data bits (LSB first), parity bit, stop bit (1)
 
 My meter seems to send:
 
-R226107789670\r
+R226107229550\r
 
 i.e. Rxxxxyyyyyyyy\r
 
@@ -58,4 +56,4 @@ yyyyyyyy - not completely sure, does not seem to change.
 
 Some of this code was inspired by https://github.com/rszimm/kmeter by Rich Zimmerman, which gave me an idea how to read the meter. Thanks for sharing the code.
 
-And some other info I also got from http://www.plctalk.net/qanda/showthread.php?t=79284
+Some other info I also got from http://www.plctalk.net/qanda/showthread.php?t=79284

@@ -19,10 +19,10 @@ class SensusProtocol {
 
 public:
   SensusProtocol(int clock_pin, int read_pin, bool read_pin_pullup = true);
-  void setup();
+  void setup(int reset_wait=5000);
   int getClockPin() const;
   String readData();
-  void slowBitRead();
+  void slowBitRead(int wait);
 };
 
 
