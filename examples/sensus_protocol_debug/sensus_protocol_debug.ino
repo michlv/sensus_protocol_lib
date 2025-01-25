@@ -6,7 +6,7 @@
 
 #include <SensusProtocol.h>
 
-SensusProtocol meter;
+SensusProtocol meter(2, 0);
 
 void setup() {
   // put your setup code here, to run once:
